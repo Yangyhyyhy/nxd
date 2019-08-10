@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>登录页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><link rel="stylesheet" href="../css/login-c6a4a3a3c7.css"><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/md5.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charet="utf-8"></script></head><body><div class="login-bg"><div class="login-img"><img id="loginImg" src="" alt=""></div><div class="login-msg">请微信扫码登录</div></div></body><script>TV.structure('登录')
+    var random = parseInt(Math.random() * 10000);
+    console.info(random);
+    var scankey = hex_md5(navigator.userAgent + random);
+    var surl = API_URL.loginURL + "home/index/qrcode?url=" + API_URL.WXUrl + "home/auth/qrcodelogin?scankey=" + scankey;
+    $("#loginImg").attr("src", surl);
+  
+
+    
+    window.setInterval(function () {
+        var params = {
+            scankey: scankey,
+            cardNo: hardwareOpt()    //绑定盒号
+        }
+        console.log('run')
+        http(API_URL.loginURL + 'home/auth/getQrcodeLoginToken', params, function (err, data) {
+            console.log(data)
+            if (data.code == 0) {
+                $(".login-msg").html("登录成功");
+                $.cookie('TV_CST_TOKEN', data.data.access_token, { path: '/' });
+                var mess = {
+                    access_token: data.data.access_token
+                }
+                var res = {
+                    cardno: hardwareOpt(),   //绑定盒号
+                    access_token: data.data.access_token
+                }
+                http(API_URL.loginURL + 'home/auth/bindCardNo', res, function (err, data) {
+
+                })
+                http(API_URL.baseURL + 'user/userinfo', mess, function (err, data) {
+                    console.table(data.data)
+                    $.cookie('TV_CST_NAME', data.data.nick_name, { path: '/' });
+                    $.cookie('TV_CST_HEADIMG', data.data.head_img, { path: '/' });
+                    var moblie = data.data.mobile || null;
+                    var volunteer = data.data.is_volunteer || null;
+                    if(volunteer == 1){
+                        volunteer = "是"
+                    }else{
+                        volunteer = "否"
+                    }
+
+                    $.cookie('TV_CST_MOBILE', moblie, { path: '/' });
+                    $.cookie('TV_CST_volunteer', volunteer, { path: '/' });
+                    // $.cookie('TV_CST_INTEGRAL', data.data.integral, { path: '/' });
+                    // console.log()
+                    window.history.go(-1)
+                })
+
+
+            } else if (data.code == 903) {
+                $(".login-msg").html("已扫描");
+            }
+        })
+    }, 3000);
+
+    function direEnter() {
+
+    }</script><script src="../js/login-d726f7ab9a.js"></script></html>

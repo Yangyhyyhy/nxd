@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>详情页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><!-- <link rel="stylesheet" href="../css/login-c6a4a3a3c7.css"> --><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/md5.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charet="utf-8"></script><style>.detail-bg {
+			width: 1280px;
+			height: 720px;
+			position: relative;
+			top: 0;
+			left: 0;
+			background: url(../images/bg.png) no-repeat left top;
+		}
+
+		.whiteBg {
+			width: 1120px;
+			height: 468px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -560px;
+			margin-top: -214px;
+			background-color: rgba(255, 255, 255, 0.1);
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+
+		.detailImg {
+			width: 294px;
+			height: 166px;
+			overflow: hidden;
+			position: absolute;
+			left: 40px;
+			top: 110px;
+			border-radius: 10px;
+		}
+
+		.detaiPic {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.detailBtn {
+			width: 290px;
+			height: 54px;
+			background: rgba(249, 140, 46, 1);
+			border-radius: 15px;
+			color: #ffffff;
+			font-size: 24px;
+			text-align: center;
+			position: absolute;
+			top: 300px;
+			left: 40px;
+			line-height: 54px;
+			border: 3px solid white;
+		}
+
+		.detailMsg {
+			width: 724px;
+			height: 346px;
+			position: absolute;
+			right: 28px;
+			top: 96px;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+
+		.detailRow {
+			width: 100%;
+			float: left;
+			box-sizing: border-box;
+			overflow: hidden;
+			margin-top: 10px;
+		}
+
+		.detailName {
+			width: 120px;
+			font-size: 24px;
+			font-weight: bold;
+			float: left;
+			color: rgba(255, 216, 0, 1);
+			line-height: 36px;
+		}
+
+		.title {
+			width: 100%;
+			display: block;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			font-size: 28px;
+			color: #333;
+			position: absolute;
+			top: 28px;
+
+		}
+
+		.detailTxt {
+			width: 600px;
+			float: right;
+			font-size: 22px;
+			font-weight: 400;
+			color: #333;
+			line-height: 36px;
+		}</style></head><body><div class="detail-bg"><div class="whiteBg"><span class="title"></span><div class="detailImg"><img src="" class="detaiPic"></div><div class="detailBtn"><span></span>报名</div><div class="detailMsg"><div class="detailRow"><div class="detailName">团队名称：</div><div class="detailTxt group_name"></div></div><div class="detailRow"><div class="detailName">负 责 人：</div><div class="detailTxt contacter"></div></div><div class="detailRow"><div class="detailName">联系方式：</div><div class="detailTxt phone"></div></div><div class="detailRow"><div class="detailName">团队地址：</div><div class="detailTxt address">泗阳</div></div><div class="detailRow"><div class="detailName">服务项目：</div><div class="detailTxt content"></div></div></div></div></div></body><script>TV.structure('志愿者集结号')
+
+	GetDatas('getArticle', { id: TV.GetParam() }, function (res, data) {
+		var data = data.data;
+		console.log(data)
+		$('.title').html(data.title)
+		$('.contacter').html(data.contacter)
+		$('.group_name').html(data.name)
+		$('.phone').html(data.phone)
+		$('.address').html(data.address)
+		var img = data.img ?API_URL.imgURL + data.img : '../images/nonePic.png';
+		$(".detaiPic").attr("src", img);
+		$('.content').html(data.items)
+	})
+
+	function direEnter() {
+		TV.PromptMsg('报名成功！');
+	}</script><script src="../js/login-d726f7ab9a.js"></script></html>

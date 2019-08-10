@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>多行模块列表</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><!-- <link rel="stylesheet" href="../css/infoList.css"> --><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><style>.multiLineList-bg {
+            width: 1280px;
+            height: 720px;
+            background: url(../images/bg.png) no-repeat left top;
+        }
+
+        .list-bg {
+            width: 1121px;
+            height: 467px;
+            /* background-color: #005595; */
+            position: relative;
+            top: 132px;
+            left: 79px;
+            background: rgba(39, 79, 193, .1);
+            border-radius: 10px;
+        }
+
+        .list-con {
+            padding-top: 10px;
+            overflow: hidden;
+        }
+
+
+        .list-row {
+            width: 260px;
+            height: 194px;
+            float: left;
+            color: #fff;
+            box-sizing: border-box;
+            text-align: center;
+            border: 3px solid transparent;
+            margin: 10px 0px 10px 17px;
+            position: relative;
+            font-size: 22px;
+        }
+
+        .listImgBar {
+            display: block;
+            float: left;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .list-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .list-row .listPlay {
+            position: absolute;
+            z-index: 555;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .2)
+        }
+
+        .listPlay>img {
+            position: absolute;
+            display: block;
+            height: 70px;
+            width: 70px;
+            top: 0px;
+            left: 0;
+        }
+
+
+
+        .list-row>p {
+            color: #333;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 1);
+            line-height: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 0px 0px 4px 4px;
+        }
+
+        .list-row.active {
+            border: 4px solid orange;
+        }</style></head><body><div class="multiLineList-bg" id="multiLineListMain"><div class="list-bg"><div class="list-con" id="list-con"></div><div class="page-show" id="page_show"><span id="now_page">0</span> / <span id="total_page">0</span></div></div></div></body><script>var modelIndex = {
+        disUser: true,
+        index: 0, //初始位置
+        pageSize: 8,
+        type: 3,
+        listName: 'list-row', //模块名称
+        containerId: 'list-con' //包含模块的标签id
+    }
+    var mess = '平语近人';
+    TV.structure(mess)
+
+    function getMessage(page, pageSize, pos, index) {
+        var param = {
+            page: page,
+            pagesize: pageSize,
+            cid: 305,
+            // area_id: $.cookie('TV_CST_AREA'),
+            device: 'tv'
+        }
+        GetDatas('getArticleList', param, function (err, res) {
+            var mess = res.data;
+            var str = '';
+            if (mess.items.length > 0) {
+                for (var i = 0; i < mess.items.length; i++) {
+                    var img = '';
+                    if (mess.items[i].img == '') {
+                        img = '../images/base1.jpg'
+                    } else {
+                        img = API_URL.imgURL + mess.items[i].img
+                    }
+                    str += "<div class='list-row' data-id=" + mess.items[i].id + " data-tpe=" + mess.items[i]
+                        .tpe + " >";
+                    //通过数组的方式 将所有的对应项都输出来
+                    str += '<div class="listImgBar">'
+                    str += "<img class='list-img' src=" + img + ">";
+
+                    if (mess.items[i].tpe == 5 || mess.items[i].tpe == 4) {
+                        str += "<div class='listPlay' ><img src='../images/play.png'></div>";
+                    }
+                    str += '</div>'
+                    str += "<p>" + mess.items[i].title + "</p>";
+                    str += "</div>"
+                }
+            } else {
+                str += '<div class="noneData">暂无数据</div>';
+                $('#page_show').css('display', 'none');
+            }
+            $('#list-con').html(str);
+            $('#now_page').html(page)
+            $('#total_page').html(mess.totalpage)
+            right.index = index ? index : pos == 'previous' ? pageSize - 1 : 0;
+            right.initialization();
+            right.toggleFocus(right.index);
+
+
+        })
+        // right.toggleFocus();
+    }
+
+
+
+    function direEnter(index) {
+        var tpe = $('.active').attr('data-tpe');
+        if (tpe == 4 || tpe == 5) {
+            window.location.href = 'play.html?id=' + $('.active').attr('data-id');
+        } else if (tpe == 1 || tpe == 2 || tpe == 3) {
+            // if (tpe == 3) {
+            //     window.location.href = './carrousel.html?id=' + $('.active').attr('data-id')
+            //     return
+            // }
+            var locaName = tpe == 1 ? 'word' : 'article'
+            window.location.href = locaName + 'Detail.html?id=' + $('.active').attr('data-id') + '&type=' + TV
+            .GetParam()
+        }
+
+    }</script><script type="text/javascript" src="../js/pageList-c03f1917fb.js"></script></html>

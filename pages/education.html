@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>教育服务</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><style>.education-bg {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            top: 0;
+            left: 0;
+            background: url(../images/bg.png) no-repeat left top;
+        }
+
+        .nav-bg {
+            width: 1150px;
+            height: 60px;
+            position: absolute;
+            top: 130px;
+            left: 80px;
+            /* padding: 0 30px 0 30px; */
+        }
+
+        .nav {
+            width: 15%;
+            height: 100%;
+            color: #F99F26;
+            font-size: 26px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+        }
+
+        .nav:nth-child(5) {
+            width: 19%;
+        }
+
+        .nav:nth-child(6) {
+            width: 19%;
+        }
+
+        .list-bg {
+            position: absolute;
+            padding: 15px;
+            top: 207px;
+            left: 80px;
+            width: 1120px;
+            height: 467px;
+            background: rgba(39, 79, 193, .1);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .list-con {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .list-con>h1 {
+            text-align: center;
+            width: 100%;
+            line-height: 280px;
+            font-size: 55px;
+            color: #f2f2f2;
+        }
+
+        .focus_menu {
+            background: url('../images/title-active.png') no-repeat bottom center;
+            /* background-size: 96%; */
+            color: #EB4848;
+        }
+
+        .list-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .list-row {
+            margin-bottom: 10px;
+            width: 100%;
+            height: 93px;
+            box-sizing: border-box;
+            float: left;
+            overflow: hidden;
+            color: white;
+            font-size: 22px;
+            border-radius: 10px;
+            border: 3px solid transparent;
+        }
+
+        .list-video>.listImgBar {
+            display: block;
+            float: left;
+            width: 100%;
+            height: 80%;
+        }
+
+        .list-row>.listImgBar {
+            display: block;
+            float: left;
+            width: 136px;
+            height: 76px;
+            margin: 5px 8px 0 9px;
+        }
+
+        .list-row>.list-message {
+            display: block;
+            float: left;
+            width: 900px;
+            height: 76px;
+            margin: 9px 0 0 9px;
+            font-size: 27px;
+            /* border: 1px solid red; */
+        }
+
+        .list-row .list-brief {
+            font-size: 18px;
+            color: white;
+            width: 100%;
+            height: 20px;
+            line-height: 63px;
+        }
+
+        .list-row .list-brief>p:first-child {
+            width: 80%;
+            float: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: none;
+        }
+
+        .list-row .list-brief>p:last-child {
+            width: 20%;
+            float: right;
+            text-align: right;
+            font-size: 22px;
+        }
+
+        .list-video,
+        .list-cur {
+            width: 260px;
+            height: 194px;
+            float: left;
+            color: #fff;
+            box-sizing: border-box;
+            text-align: center;
+            border: 3px solid transparent;
+            margin: 2px 0px 10px 10px;
+            position: relative;
+            font-size: 22px;
+        }
+
+
+        .list-cur>p {
+            color: #333;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 1);
+            line-height: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 0px 0px 4px 4px;
+            z-index: 666;
+        }
+
+        .list-video>p {
+            color: #333;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 1);
+            line-height: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 0px 0px 4px 4px;
+            z-index: 666;
+        }
+
+        .list-cur>p>span:first-child {
+            display: block;
+            float: left;
+            width: 65%;
+            margin-right: 2%;
+        }
+
+        .curActive {
+            border: 3px solid orange;
+        }
+
+        .list-cur>p>span:last-child {
+            display: block;
+            float: right;
+            width: 15%;
+            margin-right: 2%;
+        }
+
+        .list-video .listPlay,
+        .list-cur .listPlay {
+            position: absolute;
+            z-index: 555;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .2)
+        }
+
+        .listImgBar {
+            width: 100%;
+            height: 80%;
+            position: relative;
+        }
+
+        .listPlay>img {
+            position: absolute;
+            display: block;
+            height: 70px;
+            width: 70px;
+            top: 0;
+            left: 0;
+        }
+
+        .list-video.active {
+            border: 3px solid orange;
+        }
+
+        .userCur {
+            position: absolute;
+            width: 101px;
+            height: 38px;
+            background: url('../images/userCur-bg.png') no-repeat bottom center;
+            left: -7px;
+            top: 96px;
+            z-index: 9999;
+            line-height: 38px;
+        }
+
+        /* 选中外框 */
+        /* .list-row.active,
+        .list-cur.active {
+           border:3px solid orange;
+            border-radius: 10px;
+        } */
+        /* 选中内框 */
+        .list-row.active {
+            border: 3px solid orange;
+            border-radius: 10px;
+        }
+
+        .list-cur.active>.listImgBar {
+            height: 78%;
+            margin-top: 1px;
+            padding-right: -1px;
+            box-sizing: border-box;
+            border: 4px solid orange;
+        }
+
+        .cur {
+            margin-top: 4px;
+        }</style></head><body><div class="education-bg" id="educationMain"><ul class="nav-bg" id="nav-bg"></ul><div class="list-bg"><div class="list-con" id="list-con"></div><p class="page-show"><span id="now_page">0</span>/<span id="total_page">0</span></p></div></div></body><script>var modelIndex = {
+        index: 0, //导航栏初始位置
+        menuKey: '',
+        menuPageSize: 6, //导航栏模块数量
+        pageSize: 1, //主模块数量
+        type: '',
+        crumbs: '教育服务',
+        structure: 2, //上下结构  默认1是左右，2是上下结构
+        menuContainerId: 'nav-bg', //包含导航栏模块的标签id
+        menuListName: 'nav', //导航栏模块名称class
+        mainContainerId: 'list-con', //包含主模块的标签id
+        mainlistName: '', //主模块名称
+        id: 'education',
+    }
+
+    var leftData = [{
+            name: '教育讯息', //name
+            id: '264', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-video' //右侧模块classname
+        },
+        {
+            name: '文明手册', //name
+            id: '266', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-video' //右侧模块classname
+        },
+        {
+            name: '模范先锋榜', //name
+            id: '293', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-cur', //右侧模块classname
+            is_cur: 'true'
+        },
+        {
+            name: '扶贫就业', //name
+            id: '1004', //唯一标识
+            type_style: '1', //类别
+            size: '4', //数量  
+            list_name: 'list-row' //右侧模块classname
+        },
+        {
+            name: '文明实践在行动', //name
+            id: '1005', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-video' //右侧模块classname
+        },
+        {
+            name: '文明随手拍', //name
+            id: '1006', //唯一标识
+            type_style: '1', //类别
+            size: '4', //数量  
+            list_name: 'list-row' //右侧模块classname
+        }
+    ];
+
+    function getMenus(page, number) {
+        if (typeof number == 'number') {
+            // modelIndex.mainContainerId = leftData[number].list_name;
+        }
+        left.paint(page, number);
+    }
+
+    function getMessage(id, page, pos, index) { //id,类型，页码，上下页，位置
+        var params = {
+            cid: id,
+            page: page,
+            pagesize: modelIndex.pageSize
+            // area_id: $.cookie('TV_CST_AREA')
+        }
+
+        GetDatas('getArticleList', params, function (res, data) {
+            var mess = data.data;
+            console.log(mess.items)
+            var str = '';
+            if (mess.items.length) {
+                $('.page-show').css('display', 'block')
+                for (var i = 0; i < mess.items.length; i++) {
+                    str += '<div class="' + modelIndex.mainlistName + '" data-id=' + mess.items[i].id +
+                        " data-tpe=" + mess.items[i].tpe + " >";
+                    var img = '';
+                    if (mess.items[i].img == '') {
+                        img = '../images/base1.jpg'
+                    } else {
+                        img = API_URL.imgURL + mess.items[i].img
+                    }
+                    str += '<div class="listImgBar">'
+                    str += "<img class='list-img' src=" + img + ">";
+                    str += '</div>'
+                    if (modelIndex.mainlistName == "list-row") {
+                        str += '<div class="list-message"><p class="ell">' + mess.items[i].title + '</p>'
+                        str += '<div class="list-brief "><p class="ell">' + mess.items[i].brief + '</p><p>' +
+                            mess.items[i].add_time + '</p></div>'
+                        str += '</div>'
+                    } else if (modelIndex.mainlistName == "list-video" || modelIndex.mainlistName ==
+                        "list-cur") {
+                        if (mess.items[i].tpe == 5 || mess.items[i].tpe == 4) {
+                            str += "<div class='listPlay' ><img src='../images/sp.png'></div>";
+                        } else if (mess.items[i].tpe == 1) {
+                            str += "<div class='listPlay' ><img src='../images/icon-zixun.png'></div>";
+                        } else {
+                            str += "<div class='listPlay' ><img src='../images/icon-tuwen.png'></div>";
+                        }
+
+                        if (modelIndex.mainlistName == "list-cur") {
+                            str += "<p><span class='ell'>" + mess.items[i].title +
+                                "</span><img class='cur' src='../images/goodWhite.png'/><span class='cur-number'>" +
+                                mess.items[i].likes + "<span></p>";
+                            str += "<div class='userCur ell'>" + mess.items[i].title + "</div>"
+
+                        } else {
+                            var runState = true;
+                            str += "<p class='dataMess'>" + mess.items[i].title + "</p>";
+                        }
+                    }
+
+                    str += '</div>'
+                }
+            } else {
+                str = '<h1>暂无数据</h1>'
+                $('.page-show').css('display', 'none')
+            }
+            $('#' + modelIndex.mainContainerId).html(str);
+            MessOpt(page, mess.totalpage, pos, index);
+        })
+    }
+
+    function direEnter(status, id, index) {
+        if (status == 0) {
+            var access_token = $.cookie('TV_CST_TOKEN');
+            var ids = $('.active').attr('data-id');
+            alert(ids)
+            alert(access_token)
+            // var param = {
+            //         access_token: access_token,
+            //         id : ids ,
+            //     }
+            // GetDatas('dianzan', param, function (err, res) {
+            //         if (res.code == 0) {
+            //             TV.PromptMsg('点赞成功')
+            //             $(".cur-number").eq(index).html(res.data.likes);
+            //         }  else {
+            //             var message = res.message
+            //             TV.PromptMsg(message)
+            //         }
+            //     })
+            new TV.CookieOpt().clean();
+        } else {
+            var tpe = $('.active').attr('data-tpe');
+            if (id == 293) {
+                window.location.href = "educationDetail.html?id=" + $('.active').attr('data-id');
+                return
+            }
+            if (tpe == 4 || tpe == 5) {
+                window.location.href = 'play.html?id=' + $('.active').attr('data-id');
+            } else if (tpe == 1 || tpe == 2 || tpe == 3) {
+                // if (tpe == 3) {
+                //     window.location.href = './carrousel.html?id=' + $('.active').attr('data-id')
+                //     return
+                // }
+                var locaName = tpe == 1 ? 'word' : 'article'
+                window.location.href = locaName + 'Detail.html?id=' + $('.active').attr('data-id') + '&type=' + $(
+                    '.focus_menu').attr('data-id');
+            }
+
+        }
+
+
+    }</script><script type="text/javascript" src="../js/twoPageList-19e56c3069.js"></script></html>

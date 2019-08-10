@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>图片轮播</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><link rel="stylesheet" href="../css/carrousel-55a41e69ad.css"><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script></head><body><div class="btns btn-left">《</div><div class="carrousel-bg" id="carrouselMain"></div><div class="btns btn-right">》</div></body><script>var direState = false;
+    var dataLength;
+    var param = {
+        id: TV.GetParam('id')
+    }
+    var apiName = TV.GetParam('type') == 'activety' ? 'getActivity' : 'getArticle';
+    GetDatas(apiName, param, function (err, res) {
+        console.log(res)
+        var mess = res.data;
+        dataLength = mess.photos.length;
+        if (dataLength) {
+            var str = '';
+            for (var i = 0; i < dataLength; i++) {
+                str += ' <div class="model"><img src="' + API_URL.imgURL + mess.photos[i] + '"></div>'
+            }
+            $('#' + modelIndex.containerId).html(str);
+            right.toggleFocus();
+            direState = true;
+            if (dataLength > 1) {
+                $('.btns').css('display', 'block');
+                direState = true;
+            }
+        }
+    })
+    var modelIndex = {
+        disHeader: true,
+        disUser: true,
+        isIndex: false,
+        index: 0,//初始位置
+        listName: 'model', //模块名称
+        containerId: 'carrouselMain'//包含模块的标签id
+    }
+    function direOpt(index, directive) {
+        if (directive == "backwards" && direState) { //左
+            index = index >= 1 ? --index : dataLength - 1
+        } else if (directive == 'forwards' && direState) {  //右
+            index = index < dataLength - 1 ? ++index : 0
+        }
+        return index;
+    }</script><script type="text/javascript" src="../js/index-ae96f2e2bc.js"></script></html>

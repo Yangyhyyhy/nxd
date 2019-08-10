@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>文明超市</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/md5.js" type="text/javascript" charset="utf-8"></script><style>.shop-bg {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            top: 0;
+            left: 0;
+            background: url(../images/bg.png) no-repeat left top;
+        }
+
+        .nav-bg {
+            width: 1000px;
+            height: 60px;
+            position: absolute;
+            top: 130px;
+            left: 80px;
+            padding: 0 60px 0 60px;
+        }
+
+        .nav {
+            width: 33%;
+            height: 100%;
+            color: #F99F26;
+            font-size: 28px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+        }
+
+        .list-bg {
+            position: absolute;
+            padding: 15px;
+            top: 207px;
+            left: 80px;
+            width: 1120px;
+            height: 455px;
+            background: rgba(39, 79, 193, .1);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .list-con {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .list-con>h1 {
+            text-align: center;
+            width: 100%;
+            line-height: 280px;
+            font-size: 55px;
+            color: #f2f2f2;
+        }
+
+        .focus_menu {
+            background: url('../images/title-active.png') no-repeat bottom center;
+            /* background-size: 96%; */
+            color: #EB4848;
+        }
+
+
+        .list-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .list-video {
+            width: 260px;
+            height: 194px;
+            float: left;
+            color: #fff;
+            box-sizing: border-box;
+            /* text-align: center; */
+            border: 3px solid transparent;
+            margin: 2px 0px 10px 10px;
+            position: relative;
+            font-size: 22px;
+        }
+
+        .list-video>.listImgBar {
+            display: block;
+            float: left;
+            width: 100%;
+            height: 140px;
+        }
+
+        .list-video.active p {
+            /* border: 3px solid orange; */
+            background: orange;
+            color: white;
+        }
+
+        .list-video>p {
+            text-indent: 10px;
+            color: #333;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 1);
+            line-height: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 8px;
+            z-index: 666;
+            border: 3px solid transparent;
+        }
+
+        .userCur {
+            position: absolute;
+            width: 160px;
+            height: 38px;
+            background: url('../images/userCur-bg.png') no-repeat bottom center;
+            background-size: 100% 100%;
+            left: -7px;
+            top: 12px;
+            z-index: 99;
+            line-height: 38px;
+        }
+
+        .list-video>p>span {
+            width: 40%;
+            float: right;
+            text-align: right;
+            margin-right: 16px;
+        }
+        .aa{
+            position: absolute;
+    /* top: 50%; */
+    /* left: 50%; */
+    z-index: 1111;
+    text-align: center;
+    top: 180px;
+    left: 400px;
+        }
+        .page-show {
+            left: 53%;
+        }</style></head><body><div class="shop-bg" id="shopMain"><ul class="nav-bg" id="nav-bg"></ul><div class="list-bg"><div class="list-con" id="list-con"></div><p class="page-show"><span id="now_page">0</span>/<span id="total_page">0</span></p></div></div></body><script>isCache = false;
+    var modelIndex = {
+        index: 0, //导航栏初始位置
+        menuKey: '',
+        menuPageSize: 3, //导航栏模块数量
+        pageSize: 1, //主模块数量
+        type: '',
+        crumbs: '文明超市',
+        structure: 2, //上下结构  默认1是左右，2是上下结构
+        menuContainerId: 'nav-bg', //包含导航栏模块的标签id
+        menuListName: 'nav', //导航栏模块名称class
+        mainContainerId: 'list-con', //包含主模块的标签id
+        mainlistName: '', //主模块名称
+        id: 'shop',
+    }
+
+    var leftData = [
+    {
+            name: '我要兑换', //name
+            id: '3', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-video', //右侧模块classname
+        },   
+        {
+            name: ' 我的礼品', //name
+            id: '2', //唯一标识
+            type_style: '3', //类别
+            size: '8', //数量  
+            list_name: 'list-video', //右侧模块classname
+        }, 
+    {
+            name: '兑换规则', //name
+            id: '1', //唯一标识
+            type_style: '0', //类别
+            size: '0', //数量  
+            list_name: 'list-content' //右侧模块classname
+        },
+       
+        
+    ];
+
+    function getMenus(page, number) {
+        if (typeof number == 'number') {
+            // modelIndex.mainContainerId = leftData[number].list_name;
+        }
+        left.paint(page, number);
+    }
+
+    function getMessage(id, page, pos, index) { //id,类型，页码，上下页，位置
+        var params = {
+            // cid: id,
+            page: page,
+            pagesize: modelIndex.pageSize,
+            month: modelIndex.menuKey || ''
+            // area_id: $.cookie('TV_CST_AREA')
+        }
+        if (id == 1) {
+            str = '<img  src="../images/shopbg.png">'
+            $('#' + modelIndex.mainContainerId).html(str);
+            $('.page-show').css('display', 'none')
+        } else {
+            if (id == 2) {
+                var url = 'duihuanRecord'
+                var access_token = $.cookie('TV_CST_TOKEN');
+                var params = {
+                    page: page,
+                    pagesize: modelIndex.pageSize,
+                    month: modelIndex.menuKey || '',
+                    access_token: access_token,
+                }
+
+            } else if (id == 3) {
+                var url = 'getShop'
+                var params = {
+                    page: page,
+                    pagesize: modelIndex.pageSize,
+                    month: modelIndex.menuKey || ''
+                }
+            }
+            GetDatas(url, params, function (res, data) {
+                // TV.PromptMsg(data.code)
+                var mess = data.data;
+                console.log(mess.items)
+                if (data.code == 10009) {
+
+                    TV.userLogin();
+                    getMessage(id, page, pos, index);
+                    // TV.PromptMsg("请重新登录");
+                    // setTimeout(function () {
+                    //    window.location.href = 'login.html'
+                    // }, 1000);
+                }else{
+                var str = '';
+                if (mess.items.length) {
+                    $('.page-show').css('display', 'block')
+                    for (var i = 0; i < mess.items.length; i++) {
+                        str += '<div class="' + modelIndex.mainlistName + '" data-id=' + mess.items[i].id +
+                            " data-tpe=" + mess.items[i].tpe + " >";
+                        if (modelIndex.mainlistName == 'list-video') {
+                            var img = '';
+                            if (mess.items[i].img == '') {
+                                img = '../images/base1.jpg'
+                            } else if(id ==3 ){
+                                img = API_URL.imgURL + mess.items[i].img
+                            }else{
+                                img = API_URL.imgURL + mess.items[i].goodsimg
+                            }
+                            str += '<div class="listImgBar">'
+                            str += "<img class='list-img' src=" + img + ">";
+                            str += '</div>'
+                            str += "<p>";
+                                if (id == 3) {
+                                    str += '兑换';
+                                } else {
+                                    if (mess.items[i].sts == 2) {
+                                        str += '已领取'
+                                    } else {
+                                        str += '已花费'
+
+                                    }
+
+                                }
+                            str += "<span>" + mess.items[i].integral + "积分</span></p>";
+                            if(id == 3){
+                                str += "<div class='userCur ell'>" + mess.items[i].name + "</div>"
+                            }else{
+                                str += "<div class='userCur ell'>" + mess.items[i].goodsname + "</div>"
+                            }
+                            
+                        } else {
+
+                        }
+                        str += '</div>'
+                    }
+                } else {
+                    str = '<h1>暂无数据</h1>'
+                    $('.page-show').css('display', 'none')
+                }
+            }
+                $('#' + modelIndex.mainContainerId).html(str);
+                MessOpt(page, mess.totalpage, pos, index);
+            })
+        }
+
+    }
+
+    function direEnter(status, id, index) {
+        function prompt() {
+    str = '<div class="tishi" style="position: absolute;top: 0;left:0;z-index:1111;background: rgba(0,0,0,.4);width:1280px;height:720px;"><img style="position: absolute;top: 160px;left: 400px;" src="../images/tishi.png" alt=""></div>';
+    $("body").append(str);
+    setTimeout(function () {
+        $('.tishi').hide()
+    }, 2000);
+};
+        var tpe = $('.active').attr('data-tpe');
+        var goodsid = $('.active').attr('data-id');
+        var access_token = $.cookie('TV_CST_TOKEN');
+        if (id == 3) {
+
+            var param = {
+                    access_token: access_token,
+                    goods_id : goodsid,
+                }
+            GetDatas('duihuan', param, function (err, res) {
+                    if (res.code == 0) {
+                        prompt()
+                    } else if (res.code == 10002) {
+
+                        if (TV.UserMess(1)) {
+                            TV.userLogin();
+                            direEnter(index);
+                        } else {
+                            TV.PromptMsg("请重新登陆")
+                        }
+                    } else {
+                        var message = res.message
+                        TV.PromptMsg(message)
+                    }
+                })
+        }
+    }</script><script type="text/javascript" src="../js/twoPageList-19e56c3069.js"></script></html>

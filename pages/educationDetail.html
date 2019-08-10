@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>资讯详情页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><!-- <link rel="stylesheet" href="../css/detailPage.css"> --><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><style>.articleDetail-bg {
+			width: 1280px;
+			height: 720px;
+			background: url(../images/bg.png) no-repeat left top;
+
+		}
+
+		.model {
+			box-sizing: border-box;
+			border: 3px solid transparent;
+		}
+
+		#articleDetailBody {
+			position: absolute;
+			top: 150px;
+			left: 80px;
+			width: 1121px;
+			height: 481px;
+			background: rgba(0, 0, 0, .1);
+			border-radius: 15px;
+			color: #fff;
+			background: rgba(39, 79, 193, .1);
+		}
+
+		#modelImg {
+			top: 85px;
+			left: 40px;
+			width: 293px;
+			height: 166px;
+			border: 3px solid rgba(255, 255, 255, 0.2);
+			position: relative;
+			float: left;
+		}
+
+		#modelImg>.alearts {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			font-size: 20px;
+			background: rgba(0, 0, 0, 0.7);
+			height: 40px;
+			line-height: 40px;
+			bottom: 0;
+		}
+
+		#modelImg>img {
+			height: 100%;
+			width: 100%;
+		}
+
+		.active,
+		#modelImg.active {
+			border: solid 3px #a77d00
+		}
+
+		#detailContain {
+			color: 333;
+			line-height: 35px;
+			font-size: 20px;
+			position: absolute;
+			top: 80px;
+			left: 376px;
+			width: 700px;
+			height: 350px;
+			overflow: hidden;
+			border-radius: 10px;
+			text-indent: 1rem;
+		}
+
+		.title {
+			width: 100%;
+			font-size: 32px;
+			line-height: 50px;
+			top: 5px;
+			position: absolute;
+			/* left: 287px; */
+			/* border: 1px solid red; */
+			text-align: center;
+			color: #333333;
+		}
+
+		.detailRow {
+			width: 100%;
+			overflow: hidden;
+			margin-bottom: 6px;
+		}
+
+		.detailRow>span:first-child {
+			font-size: 24px;
+			width: 120px;
+			font-weight: bold;
+			color: #F98C2E;
+			line-height: 36px;
+			/* letter-spacing: 1px; */
+		}
+
+		.conItems {
+			float: right;
+			width: 554px;
+			padding-right: 20px;
+		}
+
+		.w2 {
+			letter-spacing: 1.5rem;
+			margin-right: -1.5rem;
+		}
+
+		.w3 {
+			letter-spacing: .5rem;
+			margin-right: -.5rem;
+		}
+
+		#modelCur {
+			position: absolute;
+			text-align: center;
+			line-height: 40px;
+			color: #fff;
+			width: 293px;
+			height: 54px;
+			/* background: #F98C2E; */
+			border-radius: 10px;
+			font-size: 28px;
+			top: 270px;
+			left: 40px;
+		}
+
+		.model:last-child.active {
+			border: 3px solid  #a77d00;
+		}
+
+		.ell,
+		.conItems {
+			font-size: 23px;
+			color: #666666;
+		}
+		.kuang{
+			width: 90%;
+    height: 80%;
+    background: #F98C2E;
+    margin: 5px auto;
+    border-radius: 20px;
+		}</style></head><body><div class="articleDetail-bg" id="articleDetailMain"><div id="articleDetailBody"><div class="title"></div><div class="model" id="modelImg"><img class="imgs" src="" alt=""><div class="alearts">按确认键查看图集</div></div><div class="model" id="detailContain"><div class="container" id="detail"><div class="content" id="content"></div></div></div><div class="model" id="modelCur"><div class="kuang"><img src="../images/goodWhite.png" alt="" srcset="">&nbsp; <span id="numberCur"></span></div></div></div></div></body><script>isCache = false;
+	var modelIndex = {
+		disUser: true,
+		index: 1, //初始位置
+		listName: 'model', //模块名称
+		containerId: 'articleDetailBody', //包含模块的标签id
+		thisContain: 'detailContain', //翻滚外容器
+		thisDetail: 'detail', //翻滚内容
+	}
+
+
+	TV.structure('教育实践')
+
+	var articleRun;
+	var photos;
+
+	function direOpt(index, directive) {
+		if (directive == "up") { //上
+			if (index == 1) { //文章翻滚
+				TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+			} else if (index == 2) {
+				index = 0;
+			}
+		} else if (directive == "down") { //下
+			if (index == 1) { //文章翻滚
+				TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+			} else if (index == 0) {
+				index = 2;
+			}
+		} else {
+			if (directive == "backwards" && index == 1) {
+				index = 0;
+			} else {
+				index = 1
+			}
+
+			// index = index == 0 ? 1 : 0;
+			clearInterval(articleRun);
+		}
+		return index;
+	}
+
+	function getMessage() {
+		var param = {
+			id: TV.GetParam('id'),
+			// area_id: $.cookie('TV_CST_AREA')
+		}
+		GetDatas('getArticle', param, function (err, res) {
+			var mess = res.data;
+			photos = mess.photos
+			console.log(mess)
+			var str = ''
+			str += ' <p class="detailRow">'
+			str += '<span  class="w2">姓名：</span>'
+			str += '<span class="ell">' + mess.name + '</span>'
+			str += '</p>'
+			str += ' <p class="detailRow">'
+			str += '<span class="w2">简介：</span>'
+			str += '<span class="ell">' + mess.brief + '</span>'
+			str += '</p>'
+
+
+			str += ' <p class="detailRow">'
+			str += '<span>事迹介绍：</span>'
+			str += '<span class="conItems">' + mess.deed + '</span>'
+			str += '</p>'
+			$('.content').html(str);
+			$('.title').html(mess.title)
+			$('.time').html(mess.format_add_time)
+			$('#numberCur').html(mess.likes)
+			if (mess.img) {
+				$('.imgs').attr('src', API_URL['imgURL'] + mess.img);
+			} else {
+				$('.imgs').attr('src', '../images/base1.jpg');
+			}
+
+		})
+	}
+	getMessage();
+
+	function direEnter(index) {
+		console.log()
+		if (index == 0) {
+			if (photos && photos.length) {
+				window.location.href = './carrousel.html?id=' + TV.GetParam('id');
+			}
+
+		} else if (index == 1) {
+			clearInterval(articleRun);
+		} else {
+			var ids = TV.GetParam('id');
+			var access_token = $.cookie('TV_CST_TOKEN');
+
+			var param = {
+				access_token: access_token,
+				id: ids,
+			}
+			GetDatas('dianzan', param, function (err, res) {
+				if (res.code == 0) {
+					TV.PromptMsg('点赞成功')
+					$('#numberCur').html(res.data.likes);
+				} else {
+					var message = res.message
+					TV.PromptMsg(message)
+				}
+			})
+
+			// TV.PromptMsg('点赞成功')
+			// $('#numberCur').html(parseInt($('#numberCur').html()) + 1)
+		}
+	}</script><script type="text/javascript" src="../js/index-ae96f2e2bc.js"></script></html>

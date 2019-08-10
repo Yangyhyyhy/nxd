@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>用户页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><link rel="stylesheet" href="../css/login-c6a4a3a3c7.css"><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/md5.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charet="utf-8"></script><style>#userMain>div {
+            width: 25%;
+        }
+
+        .user-bg {
+            width: 500px;
+    height: 400px;
+    top: 150px;
+        }
+        #userzyz {
+    margin-left: 30px;
+    /* text-align: center; */
+}</style></head><body><div class="login-bg"><div class="user-bg"><p>用户头像：&nbsp;<img id="userImg" src="" alt=""></p><p>用 户 名 ：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="userName"></span></p><p>用户手机：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="userMobile"></span></p><p>志 愿 者 ：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="userzyz"></span></p><div id="userMain"><div class="model">返回</div><div class="model">切换用户</div><div class="model">退出用户</div></div></div></div></body><script>if ($.cookie('TV_CST_NAME') && $.cookie('TV_CST_NAME') != 'null') {
+        var mobile = $.cookie('TV_CST_MOBILE') == 'null' ? '暂无' : $.cookie('TV_CST_MOBILE')
+        var img = $.cookie('TV_CST_HEADIMG') || '../images/userHeader.png'
+        var volunteer = $.cookie('TV_CST_volunteer') == 'null' ? '否' : $.cookie('TV_CST_volunteer')
+        $('#userImg').attr('src', img);
+        $('#userName').html($.cookie('TV_CST_NAME'));
+        $('#userMobile').html(mobile);
+        $('#userzyz').html(volunteer);
+    } else {
+        window.history.go(-1)
+    }
+    var modelIndex = {
+        disUser: true,
+        crumbs: '用户信息',
+        index: 0, //初始位置
+        listName: 'model', //模块名称
+        containerId: 'userMain' //包含模块的标签id
+    }
+
+    function direOpt(index, directive) {
+        // if (directive == "backwards" || directive == 'forwards') { //右
+        if (directive == 'forwards') { //右
+            if (index < 2) {
+                index++;
+            }
+            // index = index == 1 ? 0 : 1
+        }
+        if (directive == "backwards") {
+            if (index > 0) {
+                index--;
+            }
+        }
+        return index;
+    }
+
+    function direEnter(index) {
+        if (index == 0) {
+            window.history.go(-1)
+        } else if (index == 1) {
+            $.cookie('TV_CST_NAME', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_HEADIMG', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_MOBILE', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_TOKEN', "", {
+                path: '/'
+            })
+            window.location.href = './login.html'
+        } else if (index == 2) {
+            $.cookie('TV_CST_NAME', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_HEADIMG', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_MOBILE', "", {
+                path: '/'
+            });
+            $.cookie('TV_CST_TOKEN', "", {
+                path: '/'
+            })
+            window.location.href = '../index.html'
+        }
+    }</script><script src="../js/index-ae96f2e2bc.js"></script></html>

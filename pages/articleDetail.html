@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>资讯详情页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><!-- <link rel="stylesheet" href="../css/detailPage.css"> --><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><script src="../js/video-a4511ceebf.js"></script><style>.articleDetail-bg {
+            width: 1280px;
+            height: 720px;
+            background: url(../images/bg.png) no-repeat left top;
+
+        }
+
+        .model {
+            box-sizing: border-box;
+            border: 3px solid transparent;
+        }
+
+        #articleDetailBody {
+            position: absolute;
+            top: 150px;
+            left: 80px;
+            width: 1121px;
+            height: 481px;
+            background: rgba(0, 0, 0, .1);
+            border-radius: 15px;
+            /* color: white !important; */
+        }
+
+        #articleDetailBody>#modelImg {
+            top: 79px;
+            left: 38px;
+            width: 222px;
+            height: 233px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            float: left;
+        }
+
+        #articleDetailBody>#modelImg>.alearts {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            height: 40px;
+            line-height: 40px;
+            border-radius: 0px 0px 10px 10px;
+            bottom: 0;
+            color: black;
+        }
+
+        #articleDetailBody>#modelImg>img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .active {
+            border: solid 3px #a77d00 !important;
+            border-radius: 10px;
+        }
+
+        #detailContain {
+            color: 333;
+            line-height: 35px;
+            font-size: 20px;
+            position: absolute;
+            top: 80px;
+            left: 286px;
+            width: 802px;
+            height: 350px;
+            overflow: hidden;
+            text-indent: 2rem;
+            padding: 20px 30px;
+        }
+
+        .title {
+            width: 802px;
+            font-size: 28px;
+            top: 5px;
+            position: absolute;
+            left: 287px;
+            /* border: 1px solid red; */
+            text-align: center
+        }
+
+        .time {
+            width: 802px;
+            font-size: 20px;
+            top: 46px;
+            position: absolute;
+            left: 287px;
+            /* border: 1px solid red; */
+            text-align: right
+        }</style></head><body><div class="articleDetail-bg" id="articleDetailMain"><div id="articleDetailBody"><div class="title"></div><div class="time"></div><div class="model" id="modelImg"><img class="imgs" src="" alt=""><div class="alearts">按确认键查看图集</div></div><div class="model" id="detailContain"><div class="container" id="detail"><div class="content" id="content"></div></div></div></div></div></body><script>var modelIndex = {
+        disUser: true,
+        // isVideo: true,
+        index: 1,//初始位置
+        listName: 'model', //模块名称
+        containerId: 'articleDetailBody',//包含模块的标签id
+        thisContain: 'detailContain',//翻滚外容器
+        thisDetail: 'detail',//翻滚内容
+    }
+    // var mp;
+    // setTimeout(function () {
+    //     var mediaStr = '';
+    //     if (Math.random() > 0.5) {
+    //         var mediaStr = "http://192.168.106.2/bgmusic.mp3";
+
+    //     } else {
+    //         mediaStr = "http://192.168.106.2/bgmusic2.mp3";
+    //     }
+    //     // var mediaStr = "http://192.168.1.100/bgmusic.mp3";
+    //     var videoSize = [1, 1, 1, 1];
+    //     mp = runVideo(mediaStr, videoSize);
+
+    // }, 300)
+
+
+    TV.structure('资讯详情')
+
+
+    setTimeout(function () {
+        direOpt(1, 'down')
+    }, 500);
+    var articleRun;
+    var photos;
+    function direOpt(index, directive) {
+        if (directive == "up") {//上
+            if (index == 1) {//文章翻滚
+                TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+            }
+        } else if (directive == "down") {//下
+            if (index == 1) {//文章翻滚
+                TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+            }
+        } else {
+            index = index == 0 ? 1 : 0;
+            clearInterval(articleRun);
+        }
+        return index;
+    }
+
+    function getMessage() {
+        var param = {
+            id: TV.GetParam('id'),
+            // area_id: $.cookie('TV_CST_AREA')
+        }
+        GetDatas('getArticle', param, function (err, res) {
+            var mess = res.data;
+            photos = mess.photos
+            console.log(mess)
+            $('.content').html(mess.content);
+            $('.title').html(mess.title)
+            $('.time').html(mess.format_add_time)
+            if (mess.img) {
+                $('.imgs').attr('src', API_URL['imgURL'] + mess.img);
+            } else {
+                $('.imgs').attr('src', '../images/base1.jpg');
+            }
+
+        })
+    }
+    getMessage();
+
+    function direEnter(index) {
+        if (index == 0 && photos && photos.length) {
+            window.location.href = './carrousel.html?id=' + TV.GetParam('id');
+        } else if (index == 1) {
+            clearInterval(articleRun);
+        }
+    }</script><script type="text/javascript" src="../js/index-ae96f2e2bc.js"></script></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta charset="UTF-8"><title>资讯详情页</title><meta name="page-view-size" content="1280*720"><link rel="stylesheet" href="../css/base-0f9bf74f16.css"><!-- <link rel="stylesheet" href="../css/detailPage.css"> --><script type="text/javascript" src="../lib/js/evm.js"></script><script type="text/javascript" src="../lib/js/Evm_djyw.js"></script><script type="text/javascript" src="../lib/js/key.js"></script><script src="../lib/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script><script src="../lib/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script><script src="../js/api-8de1748527.js" type="text/javascript" charset="utf-8"></script><script src="../js/public-e9e2c8fb44.js" type="text/javascript" charset="utf-8"></script><script src="../js/video-a4511ceebf.js"></script><style>.wordDetail-bg {
+            width: 1280px;
+            height: 720px;
+            background: url(../images/bg.png) no-repeat left top;
+
+        }
+
+        .model {
+            box-sizing: border-box;
+            border: 3px solid transparent;
+        }
+
+        #wordDetailBody {
+            position: absolute;
+            top: 150px;
+            left: 80px;
+            width: 1121px;
+            height: 481px;
+            /* background: rgba(255, 255,255,.1); */
+            /* color:white !important; */
+            border-radius: 15px;
+            background:rgba(39,79,193,.1);
+        }
+
+        #wordDetailBody>#modelImg {
+            top: 79px;
+            left: 38px;
+            width: 222px;
+            height: 233px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            float: left;
+        }
+
+        #wordDetailBody>#modelImg>.alearts {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            height: 40px;
+            line-height: 40px;
+            border-radius: 0px 0px 10px 10px;
+            bottom: 0;
+        }
+
+        #wordDetailBody>#modelImg>img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .active {
+            border: solid 3px #a77d00 !important;
+            border-radius: 10px;
+        }
+
+        #detailContain {
+            color: #333;
+            line-height: 35px;
+            font-size: 26px;
+            position: absolute;
+            top: 80px;
+            left: 36px;
+            width: 1050px;
+            height: 350px;
+            overflow: hidden;
+            text-indent: 2rem;
+            padding: 20px 30px;
+            /* color:#fff !important; */
+        }
+
+        .title {
+            width: 1050px;
+            font-size: 32px;
+            top: 5px;
+            position: absolute;
+            left: 36px;
+            /* border: 1px solid red; */
+            text-align: center
+        }
+
+        .time {
+            width: 1050px;
+            font-size: 20px;
+            top: 41px;
+            position: absolute;
+            left: 36px;
+            /* border: 1px solid red; */
+            text-align: right;
+            /* color: #333 */
+        }</style></head><body><div class="wordDetail-bg" id="wordDetailMain"><div id="wordDetailBody"><div class="title"></div><div class="time"></div><div class="model" id="detailContain"><div class="container" id="detail"><div class="content" id="content"></div></div></div></div></div></body><script>var modelIndex = {
+        disUser: true,
+        // isVideo: true,
+        index: 0,//初始位置
+        listName: 'model', //模块名称
+        containerId: 'wordDetailBody',//包含模块的标签id
+        thisContain: 'detailContain',//翻滚外容器
+        thisDetail: 'detail',//翻滚内容
+    }
+    // var mp;
+    // setTimeout(function () {
+    //     var mediaStr = "http://192.168.106.2/bgmusic.mp3";
+    //     // var mediaStr = "http://192.168.1.100/bgmusic.mp3";
+    //     var videoSize = [1, 1, 1, 1];
+    //     mp = runVideo(mediaStr, videoSize);
+
+    // }, 300)
+    // setTimeout(function () {
+    //     direOpt(1, 'down') 
+    // }, 500);
+
+    TV.structure('资讯详情')
+    var articleRun;
+    var photos;
+    function direOpt(index, directive) {
+        if (directive == "up") {//上
+            TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+        } else if (directive == "down") {//下
+            TV.articleMove(directive, modelIndex.thisContain, modelIndex.thisDetail);
+        }
+        return index;
+    }
+
+    function getMessage() {
+        var param = {
+            id: TV.GetParam('id'),
+            // area_id: $.cookie('TV_CST_AREA')
+        }
+        GetDatas('getArticle', param, function (err, res) {
+            var mess = res.data;
+            photos = mess.photos
+            console.log(mess)
+            $('.content').html(mess.content);
+            $('.title').html(mess.title)
+            $('.time').html(mess.format_add_time)
+
+        })
+    }
+    getMessage();
+
+    function direEnter(index) {
+        clearInterval(articleRun);
+    }</script><script type="text/javascript" src="../js/index-ae96f2e2bc.js"></script></html>
